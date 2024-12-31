@@ -17,9 +17,15 @@ export default function Home(){
       });
       const { characters } = await response.json();
       console.log("characters", characters);
-      setcharacters(characters);
+      if (Array.isArray(characters)){
+        setcharacters(characters);
+      } else {
+        console.error("Invalid characters format:", characters);
+        setcharacters([]);
+      }
     } catch(error){
       console.error("Failed to generate anime characters:", error);
+      setcharacters([]);
     } finally {
       setloading(false);
     }
